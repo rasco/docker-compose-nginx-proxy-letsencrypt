@@ -1,0 +1,27 @@
+version: '2'
+services:
+  backend:
+    build: 
+        context: .
+        dockerfile: Dockerfile
+    expose:
+      - "80"
+    volumes:
+      - .:/usr/src/app/
+      - /usr/src/app/node_modules
+    environment:
+
+      # uncomment and complete these lines to enable letsencrypt support
+      # (only works on domains accessible from outside):
+      # LETSENCRYPT_HOST: example.dev
+      # LETSENCRYPT_EMAIL: admin@example.dev
+
+      PORT: 80
+      VIRTUAL_HOST: example.dev
+    networks:
+      - reverse-proxy
+
+networks:
+  reverse-proxy:
+    external:
+      name: reverse-proxy
